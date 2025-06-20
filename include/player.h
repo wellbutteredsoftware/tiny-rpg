@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <stdbool.h>
 
 /* Player header, single-file solution (AKA no player.c) */
 
@@ -11,6 +12,7 @@ struct Player {
     float vx, vy;
     int health_current;
     int health_max;
+    bool is_alive;
 
     /* Player method pointers, impls outside struct! */
     
@@ -18,6 +20,7 @@ struct Player {
     void (*take_damage)(Player *self, int amount);
     void (*draw)(Player *self);
     void (*update)(Player *self);
+    bool (*alive)(Player *self);
 };
 
 /* ==== !! Method Implementations !! ==== */
@@ -51,4 +54,8 @@ void p_update(Player *self) {
     if (IsKeyDown(KEY_LEFT))  self->vx = -speed;
     if (IsKeyDown(KEY_DOWN))  self->vy = speed;
     if (IsKeyDown(KEY_UP))    self->vy = -speed;
+}
+
+bool p_alive(Player *self) {
+    return self->is_alive;
 }

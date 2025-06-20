@@ -17,3 +17,5 @@ mac:
 
 clean:
 	rm -rf build
+
+# todo: create a Windows build rule

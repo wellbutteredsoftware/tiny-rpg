@@ -5,6 +5,7 @@
 
 typedef struct Player Player;
 
+#define MAX_GOLD 255
 #define PLR_SIZE 16
 
 struct Player {
@@ -12,6 +13,7 @@ struct Player {
     float vx, vy;
     int health_current;
     int health_max;
+    int gold;
     bool is_alive;
 
     /* Player method pointers, impls outside struct! */
@@ -54,6 +56,11 @@ void p_update(Player *self) {
     if (IsKeyDown(KEY_LEFT))  self->vx = -speed;
     if (IsKeyDown(KEY_DOWN))  self->vy = speed;
     if (IsKeyDown(KEY_UP))    self->vy = -speed;
+
+    /* Gold check, in case the player accidentally gets too rich */
+    if (self->gold > MAX_GOLD) {
+        self->gold = MAX_GOLD;
+    }
 }
 
 bool p_alive(Player *self) {

@@ -8,4 +8,6 @@ struct NPCPassive {
     float x, y;
     float vx, vy;
     int path_type;
+    bool is_shopkeeper;
+    bool wants_to_talk;
 };

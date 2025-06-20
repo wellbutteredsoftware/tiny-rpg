@@ -6,7 +6,7 @@
 typedef struct Player Player;
 
 #define MAX_GOLD 255
-#define PLR_SIZE 16
+#define PLR_SIZE 32
 
 struct Player {
     float x, y;
@@ -31,6 +31,14 @@ struct Player {
 void p_move(Player *self, float dt) {
     self->x += self->vx * dt;
     self->y += self->vy * dt;
+
+    /* x bounds: 0, 328 */
+    if (self->x <= 0) self->x = 0;
+    if (self->x >= 328) self->x = 328;
+
+    /* y bounds: 0, 328 */
+    if (self->y <= 0) self->y = 0;
+    if (self->y >= 328) self->y = 328;
 }
 
 void p_take_damage(Player *self, int amount) {
@@ -52,10 +60,10 @@ void p_update(Player *self) {
     self->vy = 0;
 
     /* Movement is very basic, maybe include sprinting via shift later? */
-    if (IsKeyDown(KEY_RIGHT)) self->vx = speed;
-    if (IsKeyDown(KEY_LEFT))  self->vx = -speed;
-    if (IsKeyDown(KEY_DOWN))  self->vy = speed;
-    if (IsKeyDown(KEY_UP))    self->vy = -speed;
+    if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) self->vx = speed;
+    if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))  self->vx = -speed;
+    if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))  self->vy = speed;
+    if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))    self->vy = -speed;
 
     /* Gold check, in case the player accidentally gets too rich */
     if (self->gold > MAX_GOLD) {

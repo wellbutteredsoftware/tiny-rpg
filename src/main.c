@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
         BeginDrawing();
             ClearBackground(BLACK);
             DrawText(TextFormat("FPS: %d", currFPS), 5, 0, 24, WHITE);
-            DrawText(TextFormat("FT: %.2fms", frameTime * 1000.0f), 5, 24, 24, WHITE);
+            DrawText(TextFormat("FT: %.1fms", frameTime * 1000.0f), 5, 24, 24, WHITE);
             player.draw(&player);
         EndDrawing();
     }

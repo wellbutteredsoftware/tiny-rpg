@@ -3,6 +3,8 @@
 /* stdlib + external deps includes */
 #include <raylib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 /* internal headers */
 #include "player.h"
@@ -11,6 +13,9 @@
 #define WINDOW_HEIGHT 360
 
 int main(int argc, char *argv[]) {
+    /* RNG system */
+    srand((unsigned int)time(NULL));
+    
     /* Raylib system setup*/
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "tiny-rpg");
     InitAudioDevice();
@@ -30,16 +35,16 @@ int main(int argc, char *argv[]) {
     };
 
     while (!WindowShouldClose()) {
-        float frameTime = GetFrameTime();
-        int currFPS = GetFPS();
+        float frame_time = GetFrameTime();
+        int current_fps = GetFPS();
 
         player.update(&player);
         player.move(&player, frameTime);
 
         BeginDrawing();
             ClearBackground(BLACK);
-            DrawText(TextFormat("FPS: %d", currFPS), 5, 0, 24, WHITE);
-            DrawText(TextFormat("FT: %.1fms", frameTime * 1000.0f), 5, 24, 24, WHITE);
+            DrawText(TextFormat("FPS: %d", current_fps), 5, 0, 24, WHITE);
+            DrawText(TextFormat("FT: %.1fms", frame_time * 1000.0f), 5, 24, 24, WHITE);
             player.draw(&player);
         EndDrawing();
     }

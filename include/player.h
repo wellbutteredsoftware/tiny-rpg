@@ -55,6 +55,7 @@ void p_draw(Player *self) {
 
 void p_update(Player *self) {
     float speed = 100.0f;
+    float sprint_mul = 1.50f;
 
     self->vx = 0;
     self->vy = 0;

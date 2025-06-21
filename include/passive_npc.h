@@ -20,5 +20,4 @@ struct NPCPassive {
     bool wants_to_talk;
 };
 
-/* ==== !! Method Implementations !! ==== */
 /* Note: Functions are prefixed by 'pn_'  */

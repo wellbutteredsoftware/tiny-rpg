@@ -15,7 +15,7 @@
 int main(int argc, char *argv[]) {
     /* RNG system */
     srand((unsigned int)time(NULL));
-    
+
     /* Raylib system setup*/
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "tiny-rpg");
     InitAudioDevice();
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
         int current_fps = GetFPS();
 
         player.update(&player);
-        player.move(&player, frameTime);
+        player.move(&player, frame_time);
 
         BeginDrawing();
             ClearBackground(BLACK);

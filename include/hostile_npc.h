@@ -14,25 +14,32 @@ struct HostileNPC {
     float vx, vy;
     int current_health;
     int max_health;
-    int heal_count;     /* Hostiles can randomly heal some damage */
+
+    /* Hostiles can randomly heal some damage */
+    int heal_count;
     bool will_heal_next;
     int attack;
     bool alive;
-    bool special;       /* Reserved for bosses and the like   */
-    int reward;         /* Pseudo-random reward for each kill */
+
+    /* Reserved for bosses and the like */
+    bool special;
+
+    /* Pseudo-random reward for each kill */
+    int reward;
 
     /* function pointers */
     void (*move)(HostileNPC* self);
     void (*draw)(HostileNPC* self);
     int (*deal_dmg)(HostileNPC* self);
     void (*take_dmg)(HostileNPC* self);
-    bool (*heal_next)(HostileNPC* self); /* Effectively a coinflip */
+
+    /* Effectively a coinflip */
+    bool (*heal_next)(HostileNPC* self);
     void (*heal)(HostileNPC* self);
 };
 
 /* ==== !! Method Implementations !! ==== */
 /* Note: Functions are prefixed by 'hn_'  */
-
 
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;
@@ -52,7 +59,14 @@ void hn_heal(HostileNPC* self) {
         self->heal_count -= 1;
     }
 
-    self->current_health = self->max_health;
+    /* Actual healing system implemented rather than right to max HP */
+    int heal = BASE_HEAL_AMT + (rand() % 5) - 2;
+    if (heal < 1) heal = 1;
+
+    self->current_health += heal;
+    if (self->current_health > self->max_health) {
+        self->current_health = self->max_health;
+    }
 }
 
 /* void hn_heal(HostileNPC* self) {                        */

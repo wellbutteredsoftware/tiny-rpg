@@ -1,6 +1,13 @@
 CC = clang
-CFLAGS = -Wall -Wextra -std=c99 -O1 -flto -funroll-loops -ffast-math
+CFLAGS = -Wall -Wextra -std=c99 -O3 -flto -funroll-loops -ffast-math -v
 INCLUDES = -I./include
+
+SRC_DIR = src
+OBJ_DIR = build/obj
+BIN_DIR = build
+
+SRCS := $(wildcard $(SRC_DIR)/*.c)
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # MacOS flags
 RAYLIB_LIB_MACOS = /opt/homebrew/lib
@@ -18,18 +25,25 @@ LDFLAGS_WIN        = -L$(RAYLIB_LIB_WINDOWS) -lraylib -lopengl32 -lgdi32 \
 
 ###
 
-SRC = src/main.c
 OUT_MAC = build/tiny-rpg
 OUT_WIN = build/tiny-rpg.exe
 
-mac:
-	rm -rf build
-	mkdir -p build
-	$(CC) $(SRC) $(CFLAGS) -I$(RAYLIB_INC_MACOS) $(INCLUDES) $(LDFLAGS_MACOS) \
-	-o $(OUT_MAC)
+.PHONY: mac win clean
 
-win:
+mac: $(OUT_MAC)
+
+win: $(OUT_WIN)
+
+$(OUT_MAC): $(OBJS)
+	$(CC) $^ $(CFLAGS) -I$(RAYLIB_INC_MACOS) $(INCLUDES) $(LDFLAGS_MACOS) -o $@
+
+$(OUT_WIN): $(OBJS)
+	$(CC) $^ $(CFLAGS) -I$(RAYLIB_INC_WINDOWS) $(INCLUDES) $(LDFLAGS_WIN) -o $@
+
+# Compile .c files to .o
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -I$(RAYLIB_INC_WINDOWS) -c $< -o $@
+
+clean:
 	rm -rf build
-	mkdir -p build
-	$(CC) $(SRC) $(CFLAGS) -I$(RAYLIB_INC_WINDOWS) $(INCLUDES) $(LDFLAGS_WIN) \
-	-o $(OUT_WIN)

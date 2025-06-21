@@ -29,4 +29,4 @@ bool p_alive(Player* self);
 void p_move(Player* self, float dt);
 void p_take_damage(Player* self, int amount);
 void p_draw(Player* self);
-void p_update(Plaayer* self);
+void p_update(Player* self);

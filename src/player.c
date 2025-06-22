@@ -27,7 +27,8 @@ void p_take_damage(Player *self, int amount) {
 
 void p_draw(Player *self) {
     DrawRectangle((int)self->x, (int)self->y, PLR_SIZE, PLR_SIZE, RED);
-    DrawText(TextFormat("HP: %d/%d", self->health_current, self->health_max), self->x, self->y - 20, 10, GREEN);
+    DrawText(TextFormat("HP: %d/%d", self->health_current, self->health_max), \
+                        self->x, self->y - 20, 10, GREEN);
 }
 
 void p_update(Player *self) {

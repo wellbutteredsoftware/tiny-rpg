@@ -1,6 +1,7 @@
 CC = clang
-CFLAGS = -Wall -Wextra -std=c99 -O3 -flto -funroll-loops -ffast-math -v
+CFLAGS = -Wall -Wextra -std=c99 -O1 -flto -funroll-loops -ffast-math
 INCLUDES = -I./include
+UNAME := $(shell uname -s)
 
 SRC_DIR = src
 OBJ_DIR = build/obj
@@ -23,6 +24,15 @@ LDFLAGS_WIN        = -L$(RAYLIB_LIB_WINDOWS) -lraylib -lopengl32 -lgdi32 \
 		-fuse-ld=lld -Wl,/SUBSYSTEM:CONSOLE
 # todo: replace SUBSYSTEM:CONSOLE with WINDOWS later in development
 
+# Universal rl flag for rule $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+ifeq ($(UNAME),Windows)
+RL = $(RAYLIB_INC_WINDOWS)
+endif
+
+ifeq ($(UNAME),Darwin)
+RL = $(RAYLIB_INC_MACOS)
+endif
+
 ###
 
 OUT_MAC = build/tiny-rpg
@@ -43,7 +53,7 @@ $(OUT_WIN): $(OBJS)
 # Compile .c files to .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -I$(RAYLIB_INC_WINDOWS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -I$(RL) -c $< -o $@
 
 clean:
 	rm -rf build

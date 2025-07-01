@@ -3,8 +3,13 @@
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;
 
-    /* Roughly 15% to heal each turn */
-    return (rand() < (int)(0.15 * RAND_MAX));
+    /* Checks if health is too high for healing */
+    if (self->current_health > (self->max_health / 3)) {
+        return false;
+    } else {
+    /* Roughly 15% to heal each turn once threshold is met */
+    return (rand() <= (int)(0.15 * RAND_MAX));
+    }
 }
 
 void hn_heal(HostileNPC* self) {
@@ -12,19 +17,29 @@ void hn_heal(HostileNPC* self) {
 
     self->will_heal_next = false;
 
-    if (self->heal_count <= 1) {
+    if (self->heal_count <= 1)
         self->heal_count = 0;
-    } else {
+    else 
         self->heal_count -= 1;
-    }
 
     /* Actual healing system implemented rather than right to max HP */
     /* Healing range: 5 +- 2 (3 to 7 pts per heal) */
     int heal = BASE_HEAL_AMT + (rand() % 5) - 2;
-    if (heal < 1) heal = 1;
+    heal = (heal < 1) ? 1 : heal;
 
     self->current_health += heal;
     if (self->current_health > self->max_health) {
         self->current_health = self->max_health;
+    }
+}
+
+int hn_deal_dmg(HostileNPC* self) {}
+
+void hn_take_damage(HostileNPC* self, int damage) {
+    if (damage >= self->current_health) {
+        self->alive = false;
+        self->current_health = 0;
+    } else if (damage < self->current_health) {
+        self->current_health -= damage;
     }
 }

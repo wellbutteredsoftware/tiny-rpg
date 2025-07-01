@@ -23,6 +23,7 @@ if(WIN32)
         set(CMAKE_C_FLAGS_DEBUG "/W4 /Od /Zi /MP /RTC1")
 
         # Release flags
+        # Do not add /WX to these! Doing so breaks rxi's code!
         set(CMAKE_C_FLAGS_RELEASE "/O2 /GL /fp:fast /W3 /DNDEBUG")
         set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG /INCREMENTAL:NO /SUBSYSTEM:CONSOLE")
 
@@ -30,7 +31,6 @@ if(WIN32)
         message(FATAL_ERROR "Unsupported compiler on Windows! (Expecting MSVC)")
     endif()
 
-    # You can adjust this path if needed
     set(RAYLIB_DIR "C:/ExternalLibs/raylib-5.5_win64_msvc16")
     include_directories("${RAYLIB_DIR}/include")
     link_directories("${RAYLIB_DIR}/lib")

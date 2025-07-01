@@ -33,7 +33,7 @@ struct HostileNPC {
     void (*move)(HostileNPC* self);
     void (*draw)(HostileNPC* self);
     int (*deal_dmg)(HostileNPC* self);
-    void (*take_dmg)(HostileNPC* self);
+    void (*take_dmg)(HostileNPC* self, int damage);
 
     /* Effectively a coinflip for heals, pretty cool*/
     bool (*heal_next)(HostileNPC* self);
@@ -46,6 +46,8 @@ bool hn_heal_next(HostileNPC* self);
 void hn_heal(HostileNPC* self);
 void hn_draw(HostileNPC* self);
 void hn_move(HostileNPC* self);
+int hn_deal_dmg(HostileNPC* self);
+void hn_take_damage(HostileNPC* self, int damage);
 
 /* void hn_heal(HostileNPC* self) {                        */
 /*     if (!self->will_heal_next) {                        */

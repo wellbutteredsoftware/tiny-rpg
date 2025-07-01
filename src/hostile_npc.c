@@ -1,4 +1,5 @@
 #include "hostile_npc.h"
+#include <stdlib.h>
 
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;
@@ -32,8 +33,6 @@ void hn_heal(HostileNPC* self) {
         self->current_health = self->max_health;
     }
 }
-
-int hn_deal_dmg(HostileNPC* self) {}
 
 void hn_take_damage(HostileNPC* self, int damage) {
     if (damage >= self->current_health) {

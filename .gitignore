@@ -1,3 +1,9 @@
+# Directories to ignore
 build/
 .vscode/
+.cache/
+
+# Specific files that we all dislike
 .DS_Store
+
+# File types

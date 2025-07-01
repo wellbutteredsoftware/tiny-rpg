@@ -1,7 +1,5 @@
 #include <raylib.h>
 #include <stdbool.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define SIZE 32
 
@@ -46,7 +44,6 @@ bool hn_heal_next(HostileNPC* self);
 void hn_heal(HostileNPC* self);
 void hn_draw(HostileNPC* self);
 void hn_move(HostileNPC* self);
-int hn_deal_dmg(HostileNPC* self);
 void hn_take_damage(HostileNPC* self, int damage);
 
 /* void hn_heal(HostileNPC* self) {                        */

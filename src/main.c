@@ -13,7 +13,23 @@
 #define WINDOW_WIDTH 360
 #define WINDOW_HEIGHT 360
 
-int main(int argc, char *argv[]) {
+#if defined (_WIN32)
+
+#include <windows.h>
+
+int WINAPI WinMain() {}
+
+#elif defined (__linux__)
+
+/* Linux / UNIX entrypoint */
+
+int main() {}
+
+#elif defined (__APPLE__)
+
+/* MacOS entrypoint */
+
+int main() {
     /* RNG system */
     srand((unsigned int)time(NULL));
 
@@ -66,3 +82,5 @@ int main(int argc, char *argv[]) {
     CloseWindow();
     return 0;
 }
+
+#endif

@@ -54,6 +54,11 @@ elseif(APPLE)
     include_directories("/opt/homebrew/include")
     link_directories("/opt/homebrew/lib")
 
+    # Debug flags
+    set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -O0 -g -std=c99")
+    # Release flags
+    set(CMAKE_C_FLAGS_RELEASE "-Wall -Wextra -Wpedantic -O3 -std=c99")
+
     # macOS-specific libraries
     set(EXTRA_LIBS
         raylib

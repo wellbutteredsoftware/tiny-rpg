@@ -54,7 +54,7 @@ void p_update(Player *self) {
     }
 
     /* Feels late to check here if the player is still alive but oh well */
-    if (!self->alive) {
+    if (!p_alive(self)) {
         /* Panic! */
     }
 }

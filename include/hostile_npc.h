@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define SIZE 32
+
 #define BASE_REWARD_GOLD 5
 #define BASE_HEAL_AMT 5
 
@@ -33,7 +35,7 @@ struct HostileNPC {
     int (*deal_dmg)(HostileNPC* self);
     void (*take_dmg)(HostileNPC* self);
 
-    /* Effectively a coinflip */
+    /* Effectively a coinflip for heals, pretty cool*/
     bool (*heal_next)(HostileNPC* self);
     void (*heal)(HostileNPC* self);
 };
@@ -42,6 +44,8 @@ struct HostileNPC {
 
 bool hn_heal_next(HostileNPC* self);
 void hn_heal(HostileNPC* self);
+void hn_draw(HostileNPC* self);
+void hn_move(HostileNPC* self);
 
 /* void hn_heal(HostileNPC* self) {                        */
 /*     if (!self->will_heal_next) {                        */

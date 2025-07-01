@@ -19,6 +19,7 @@ void hn_heal(HostileNPC* self) {
     }
 
     /* Actual healing system implemented rather than right to max HP */
+    /* Healing range: 5 +- 2 (3 to 7 pts per heal) */
     int heal = BASE_HEAL_AMT + (rand() % 5) - 2;
     if (heal < 1) heal = 1;
 

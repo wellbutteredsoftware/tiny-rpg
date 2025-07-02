@@ -1,4 +1,5 @@
 /* tiny-rpg entrypoint */
+/* call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" */
 
 /* stdlib + external deps includes */
 #include <raylib.h>
@@ -13,23 +14,7 @@
 #define WINDOW_WIDTH 360
 #define WINDOW_HEIGHT 360
 
-#if defined (_WIN32)
-
-#include <windows.h>
-
-int WINAPI WinMain() {}
-
-#elif defined (__linux__)
-
-/* Linux / UNIX entrypoint */
-
-int main() {}
-
-#elif defined (__APPLE__)
-
-/* MacOS entrypoint */
-
-int main() {
+int main(void) {
     /* RNG system */
     srand((unsigned int)time(NULL));
 
@@ -82,5 +67,3 @@ int main() {
     CloseWindow();
     return 0;
 }
-
-#endif

@@ -22,7 +22,7 @@ void pn_update(PassiveNPC* self) {
         case PATH_STATIC_NO_TALKING:
             break;
 
-        /* Just in case we add more defs, break! */
+        /* Just in case we add more defs and don't implement, break! */
         default:
             break;
     }
@@ -39,5 +39,9 @@ void pn_interact(PassiveNPC* self) {
 }
 
 void pn_talk_to_plr(PassiveNPC* self) {
-    /* I have no idea what to do here */
+    /**
+     * Idea: give NPCs a text file of generic sounding lines
+     *       a file of common lines, some special lines, maybe
+     *       even some easter egg lines, sounds not awful...
+     */
 }

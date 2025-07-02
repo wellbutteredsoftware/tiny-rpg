@@ -24,6 +24,7 @@ if(WIN32)
 
         # Release flags
         # Do not add /WX to these! Doing so breaks rxi's code!
+        # Also do not change subsystem to Windows, things go bad fast
         set(CMAKE_C_FLAGS_RELEASE "/O2 /GL /fp:fast /W3 /DNDEBUG")
         set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG /INCREMENTAL:NO /SUBSYSTEM:CONSOLE")
 

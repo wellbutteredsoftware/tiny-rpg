@@ -1,5 +1,6 @@
 #include "hostile_npc.h"
 #include <stdlib.h>
+#include <math.h>
 
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;
@@ -41,4 +42,8 @@ void hn_take_damage(HostileNPC* self, int damage) {
     } else if (damage < self->current_health) {
         self->current_health -= damage;
     }
+}
+
+int hn_determine_damage(HostileNPC* self) {
+    /* Non deterministic RNG in C... */
 }

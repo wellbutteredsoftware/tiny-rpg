@@ -29,7 +29,7 @@ void npc_mgr_draw(NPCManager* mgr) {
 void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
     FILE *npcf = fopen(filename, "r");
     if (!npcf) {
-        fprintf(stderr, "Couldn't open NPCF: %s!", filename);
+        TraceLog(LOG_ERROR, "Failed to open plist!");
         return;
     }
 
@@ -42,7 +42,7 @@ void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
 void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
     FILE *npcf = fopen(filename, "r");
     if (!npcf) {
-        fprintf(stderr, "Couldn't open NPCF: %s!", filename);
+        TraceLog(LOG_ERROR, "Failed to open hlist!");
         return;
     }
 
@@ -52,7 +52,7 @@ void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
     }
 }
 
-/* '__' means internal, don't use this in main.c! */
+/* '__' means internal, don't use these in main.c! */
 
 void __add_hostile(NPCManager* mgr, HostileNPC npc) {
 

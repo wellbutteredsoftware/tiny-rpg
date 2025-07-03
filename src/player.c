@@ -49,6 +49,7 @@ void p_update(Player *self) {
     if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) self->vy = -current_speed;
 
     /* Gold check, in case the player accidentally gets too rich */
+    /* No, there is no way to recover overflow gold, it's just deleted */
     if (self->gold > MAX_GOLD) {
         self->gold = MAX_GOLD;
     }

@@ -1,6 +1,6 @@
 # NPC File Formats
 
-NPCs are packaged into two major formats for `tiny-rpg`: `hlist` and `plist`. The only reason they are separate is because the structs for Hostiles and Passives.
+NPCs are packaged into two major formats for `tiny-rpg`: `hlist` and `plist`. The only reason they are separate is because the structs for Hostiles and Passives are quite different.
 
 ```c
 struct HostileNPC {

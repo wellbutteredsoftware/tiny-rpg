@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <stdbool.h>
 
 #define SIZE 32
 
@@ -19,6 +20,7 @@ typedef enum {
 
 /* Passive NPCs are unkillable */
 struct PassiveNPC {
+    char name[16];
     float x, y;
     float vx, vy;
     NPCPathType path_type;
@@ -31,7 +33,11 @@ struct PassiveNPC {
 
     void (*draw)(PassiveNPC* self);
     void (*update)(PassiveNPC* self);
+    void (*interact)(PassiveNPC *self);
+    void (*talk)(PassiveNPC* self);
 };
+
+// "XXXXXXXXXXXXXXXX" 0 0 0 0 0 false false false
 
 /* Note: Functions are prefixed by 'pn_'  */
 

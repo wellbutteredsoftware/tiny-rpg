@@ -8,8 +8,10 @@
 
 typedef struct HostileNPC HostileNPC;
 
+// "XXXXXXXXXXXXXXXX" 0 0 0 0 0 0 0 false 0 false false 0
+
 struct HostileNPC {
-    char name[32];
+    char name[16];
     float x, y;
     float vx, vy;
     int current_health;

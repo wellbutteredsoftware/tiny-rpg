@@ -10,10 +10,6 @@ typedef enum {
     PATH_PACE,                  /* Pace left->right:    1 */
     PATH_WANDER,                /* Wander a small area: 2 */
     PATH_SPIN,                  /* Spin in place:       3 */
-    PATH_STATIC_NO_TALKING,     /* Static, no talking:  4 */
-    PATH_PACE_NO_TALKING,       /* Pace L->R, no talk:  5 */
-    PATH_WANDER_NO_TALKING,     /* Wander, no talking:  6 */
-    PATH_SPIN_NO_TALKING,       /* Spin, no talking:    7 */
 
 } NPCPathType;
 
@@ -27,6 +23,7 @@ struct PassiveNPC {
     float vx, vy;
     NPCPathType path_type;
     bool is_shopkeeper;
+    bool plr_interacted_with_us;
     
     /* Yes technically everyone has goods */
     /* ShopkeepGoods goods; */

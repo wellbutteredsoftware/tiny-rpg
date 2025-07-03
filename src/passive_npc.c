@@ -6,7 +6,7 @@ void pn_draw(PassiveNPC* self) {
     if (self->is_shopkeeper) {
         col = GOLD;
     } else if (self->wants_to_talk) {
-        col = BLUE;
+        col = PINK;
     }
 
     DrawRectangle((int)self->x, (int)self->y, SIZE, SIZE, col);
@@ -16,10 +16,8 @@ void pn_update(PassiveNPC* self) {
     switch (self->path_type) {
         /* Move types that can interact with the player */
         case PATH_STATIC:
-            break;
-
-        /* Move types that won't interact with the player */
-        case PATH_STATIC_NO_TALKING:
+            if (self->wants_to_talk && self->plr_interacted_with_us)
+                pn_talk_to_plr(self);
             break;
 
         /* Just in case we add more defs and don't implement, break! */

@@ -2,10 +2,7 @@
 
 void pn_draw(PassiveNPC* self) {
     Color col = GRAY;
-
-    if (self->is_shopkeeper) {
-        col = GOLD;
-    } else if (self->wants_to_talk) {
+    if (self->wants_to_talk) {
         col = PINK;
     }
 
@@ -45,12 +42,10 @@ void pn_update(PassiveNPC* self) {
 }
 
 void pn_interact(PassiveNPC* self) {
-    if (!self->wants_to_talk && !self->is_shopkeeper) return;
-
-    if (self->wants_to_talk && !self->is_shopkeeper) {
+    if (self->wants_to_talk) {
         pn_talk_to_plr(self);
-    } else if (self->is_shopkeeper && !self->wants_to_talk) {
-        /* Merchant time ! */
+    } else {
+        return;
     }
 }
 
@@ -61,5 +56,5 @@ void pn_talk_to_plr(PassiveNPC* self) {
      *       even some easter egg lines, sounds not awful...
      */
 
-    const char* dialogue_file[8] = "_lines_";
+    const char dialogue[8] = "__lines";
 }

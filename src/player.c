@@ -22,7 +22,7 @@ void p_take_damage(Player *self, int amount) {
     self->health_current -= amount;
     if (self->health_current <= 0) {
         self->health_current = 0;
-        self->alive = false;
+        self->is_alive = false;
     }
 }
 
@@ -62,5 +62,5 @@ void p_update(Player *self) {
 
     /* Feels late to check here if the player is still alive but oh well */
     /* For the time being, this just crashes */
-    that(self->alive);   
+    that(self->is_alive);
 }

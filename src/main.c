@@ -31,10 +31,12 @@ int main(void) {
         .vx = 0, .vy = 0,
         .health_current = 50,
         .health_max = 50,
+        .gold = 0,
+        .is_alive = true,
         .move = p_move,
         .take_damage = p_take_damage,
         .draw = p_draw,
-        .update = p_update
+        .update = p_update,
     };
 
     while (!WindowShouldClose()) {

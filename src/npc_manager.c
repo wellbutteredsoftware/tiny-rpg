@@ -2,6 +2,22 @@
 #include <stdio.h>
 #include <string.h>
 
+static void __add_hostile(NPCManager* mgr, const HostileNPC* npc) {
+    if (mgr->num_hostiles >= MAX_HOSTILES) {
+        TraceLog(LOG_ERROR, "Hostile NPC limit reached!");
+        return;
+    }
+    mgr->hostiles[mgr->num_hostiles++] = *npc;
+}
+
+static void __add_passive(NPCManager* mgr, const PassiveNPC* npc) {
+    if (mgr->num_passives >= MAX_PASSIVES) {
+        TraceLog(LOG_ERROR, "Passive NPC limit reached!");
+        return;
+    }
+    mgr->passives[mgr->num_passives++] = *npc;
+}
+
 /* Incremental updates of all NPcs */
 void npc_manager_update(NPCManager* mgr) {
     for (unsigned int i = 0; i < mgr->num_hostiles; i++) {
@@ -41,10 +57,11 @@ void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
             line,
             "%15s %d, %d, %d, %d, %d, %d, %31s",
             npc.name,
-            &npc.x,
-            &npc.y,
-            &npc.vx,
-            &npc.vy,
+            /* Yeah it's meant to be float, we can cast this back later */
+            (int*)&npc.x,
+            (int*)&npc.y,
+            (int*)&npc.vx,
+            (int*)&npc.vy,
             (int*)&npc.path_type,
             (int*)&npc.wants_to_talk,
             npc.spritepath
@@ -67,20 +84,4 @@ void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
         TraceLog(LOG_ERROR, "Failed to open hlist!");
         return;
     }
-}
-
-static void __add_hostile(NPCManager* mgr, const HostileNPC* npc) {
-    if (mgr->num_hostiles >= MAX_HOSTILES) {
-        TraceLog(LOG_ERROR, "Hostile NPC limit reached!");
-        return;
-    }
-    mgr->hostiles[mgr->num_hostiles++] = *npc;
-}
-
-static void __add_passive(NPCManager* mgr, const PassiveNPC* npc) {
-    if (mgr->num_passives >= MAX_PASSIVES) {
-        TraceLog(LOG_ERROR, "Passive NPC limit reached!");
-        return;
-    }
-    mgr->passives[mgr->num_passives++] = *npc;
 }

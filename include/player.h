@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <stdbool.h>
+#include "inventory.h"
 
 typedef struct Player Player;
 
@@ -13,6 +14,7 @@ struct Player {
     int health_max;
     int gold;
     bool is_alive;
+    Inventory inv;
 
     /* Player method pointers, impls outside struct! */
     
@@ -20,7 +22,6 @@ struct Player {
     void (*take_damage)(Player *self, int amount);
     void (*draw)(Player *self);
     void (*update)(Player *self);
-    bool (*alive)(Player *self);
 };
 
 /* Note: all player specific functions are prefixed with 'p_' */

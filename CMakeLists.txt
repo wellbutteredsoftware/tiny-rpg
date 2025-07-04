@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20) 
-project(tiny_rpg C)
+project(tiny_rl C)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -77,13 +77,13 @@ else()
 endif()
 
 # Add executable
-add_executable(tiny_rpg ${SOURCES})
+add_executable(tiny_rl ${SOURCES})
 
 if (MSVC)
     # Silences deprecation warnings from MSVC
     message(STATUS "Set _CRT_SECURE_NO_WARNINGS to ON for MSVC.")
-    target_compile_definitions(tiny_rpg PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(tiny_rl PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
 
 # Link libraries
-target_link_libraries(tiny_rpg PRIVATE ${EXTRA_LIBS})
+target_link_libraries(tiny_rl PRIVATE ${EXTRA_LIBS})

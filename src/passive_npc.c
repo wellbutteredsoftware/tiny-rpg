@@ -20,16 +20,19 @@ void pn_update(PassiveNPC* self) {
                 pn_talk_to_plr(self);
             break;
 
+        /* Spin in place like a pokemon trainer */
         case PATH_SPIN:
             if (self->wants_to_talk && self->plr_interacted_with_us)
                 pn_talk_to_plr(self);
             break;        
-    
+        
+        /* Back and forth forever */
         case PATH_PACE:
             if (self->wants_to_talk && self->plr_interacted_with_us)
                 pn_talk_to_plr(self);
             break;
         
+        /* Like pacing but with direction changes */
         case PATH_WANDER:
             if (self->wants_to_talk && self->plr_interacted_with_us)
                 pn_talk_to_plr(self);

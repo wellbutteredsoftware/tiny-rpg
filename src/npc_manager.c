@@ -33,10 +33,32 @@ void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
         return;
     }
 
+    /* fget the string data and parse it into an NPC */
+    PassiveNPC npc;
     char line[256];
     while (fgets(line, sizeof(line), npcf)) {
-        PassiveNPC npc = { 0 };
+        int scanned = sscanf(
+            line,
+            "%15s %d, %d, %d, %d, %d, %d, %31s",
+            npc.name,
+            &npc.x,
+            &npc.y,
+            &npc.vx,
+            &npc.vy,
+            (int*)&npc.path_type,
+            (int*)&npc.wants_to_talk,
+            npc.spritepath
+        );
+
+        if (scanned == 8) {
+            npc.plr_interacted_with_us = false;
+            __add_passive(mgr, &npc);
+        } else {
+            TraceLog(LOG_WARNING, "Malformed NPC data at line: %s", line);
+        }
     }
+
+    fclose(npcf);
 }
 
 void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
@@ -45,17 +67,20 @@ void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
         TraceLog(LOG_ERROR, "Failed to open hlist!");
         return;
     }
+}
 
-    char line[256];
-    while (fgets(line, sizeof(line), npcf)) {
-        HostileNPC npc = { 0 };
+static void __add_hostile(NPCManager* mgr, const HostileNPC* npc) {
+    if (mgr->num_hostiles >= MAX_HOSTILES) {
+        TraceLog(LOG_ERROR, "Hostile NPC limit reached!");
+        return;
     }
+    mgr->hostiles[mgr->num_hostiles++] = *npc;
 }
 
-static void __add_hostile(NPCManager* mgr, HostileNPC npc) {
-
-}
-
-static void __add_passive(NPCManager* mgr, PassiveNPC npc) {
-
+static void __add_passive(NPCManager* mgr, const PassiveNPC* npc) {
+    if (mgr->num_passives >= MAX_PASSIVES) {
+        TraceLog(LOG_ERROR, "Passive NPC limit reached!");
+        return;
+    }
+    mgr->passives[mgr->num_passives++] = *npc;
 }

@@ -14,21 +14,13 @@ typedef enum {
 
 } NPCPathType;
 
-/* typedef struct ShopkeepGoods { */
-/*                                */
-/* };                             */
-
 /* Passive NPCs are unkillable */
 struct PassiveNPC {
     char name[16];
     float x, y;
     float vx, vy;
     NPCPathType path_type;
-    bool is_shopkeeper;
     bool plr_interacted_with_us;
-    
-    /* Yes technically everyone has goods */
-    /* ShopkeepGoods goods; */
     bool wants_to_talk;
 
     char spritepath[32];

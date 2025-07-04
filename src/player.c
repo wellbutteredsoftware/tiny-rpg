@@ -1,4 +1,5 @@
 #include "player.h"
+#include "assertion.h"
 
 bool p_alive(Player *self) {
     return self->is_alive;
@@ -54,8 +55,12 @@ void p_update(Player *self) {
         self->gold = MAX_GOLD;
     }
 
-    /* Feels late to check here if the player is still alive but oh well */
-    if (!p_alive(self)) {
-        /* Panic! */
+    /* Same as gold check, extra health gets removed */
+    if (self->health_current > self->health_max) {
+        self->health_current = self->health_max;
     }
+
+    /* Feels late to check here if the player is still alive but oh well */
+    /* For the time being, this just crashes */
+    that(self->alive);   
 }

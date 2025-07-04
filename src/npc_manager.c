@@ -4,24 +4,24 @@
 
 /* Incremental updates of all NPcs */
 void npc_manager_update(NPCManager* mgr) {
-    for (int i = 0; i < mgr->num_hostiles; i++) {
+    for (unsigned int i = 0; i < mgr->num_hostiles; i++) {
         if (mgr->hostiles[i].alive) {
             mgr->hostiles[i].move(&mgr->hostiles[i]);
         }
     }
-    for (int i = 0; i < mgr->num_passives; i++) {
+    for (unsigned int i = 0; i < mgr->num_passives; i++) {
         mgr->passives[i].update(&mgr->passives[i]);
     }
 }
 
 /* Incremental drawing of all NPCs*/
 void npc_mgr_draw(NPCManager* mgr) {
-    for (int i = 0; i < mgr->num_hostiles; i++) {
+    for (unsigned int i = 0; i < mgr->num_hostiles; i++) {
         if (mgr->hostiles[i].alive) {
             mgr->hostiles[i].draw(&mgr->hostiles[i]);
         }
     }
-    for (int i = 0; i < mgr->num_passives; i++) {
+    for (unsigned int i = 0; i < mgr->num_passives; i++) {
         mgr->passives[i].draw(&mgr->passives[i]);
     }
 }
@@ -52,12 +52,10 @@ void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
     }
 }
 
-/* '__' means internal, don't use these in main.c! */
-
-void __add_hostile(NPCManager* mgr, HostileNPC npc) {
+static void __add_hostile(NPCManager* mgr, HostileNPC npc) {
 
 }
 
-void __add_passive(NPCManager* mgr, PassiveNPC npc) {
+static void __add_passive(NPCManager* mgr, PassiveNPC npc) {
 
 }

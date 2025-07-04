@@ -1,6 +1,6 @@
 #include "hostile_npc.h"
 #include <stdlib.h>
-#include <math.h>
+#include <_time.h>
 
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;
@@ -44,6 +44,13 @@ void hn_take_damage(HostileNPC* self, int damage) {
     }
 }
 
-int hn_determine_damage(HostileNPC* self) {
-    /* Non deterministic RNG in C... */
+static int __determine_damage(HostileNPC* self) {
+    if (self->special) {
+        /* Random: 0<->15 but has a chance to double lol */
+        /* Only for special hostiles, like bosses */
+        return (rand() % 16) * ((rand() % 2) + 1);
+    } else {
+        /* Otherwise, just 0<->15 and no chance at doubling */
+        return rand() % 16;
+    }
 }

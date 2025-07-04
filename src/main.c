@@ -10,14 +10,13 @@
 /* internal headers */
 #include "player.h"
 #include "passive_npc.h"
-#include "microui.h"
 #include "microui_raylib.h"
 
 #define WINDOW_WIDTH 360
 #define WINDOW_HEIGHT 360
 
 int main(void) {
-    /* RNG system */
+    /* RNG system (basic srand but it's fine enough)*/
     srand((unsigned int)time(NULL));
 
     /* Raylib system setup*/
@@ -58,4 +57,10 @@ int main(void) {
     return 0;
 }
 
-
+/* This looks awful and will probably shatter upon re-compiling for Windows */
+#if defined(_WIN32)
+    #include <windows.h>
+    int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+        return main();
+    }
+#endif

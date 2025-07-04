@@ -18,8 +18,3 @@ void npc_mgr_update(NPCManager* mgr);
 void npc_mgr_draw(NPCManager* mgr);
 void npc_mgr_init_passive(const char* filename, NPCManager* mgr);
 void npc_mgr_init_hostile(const char* filename, NPCManager* mgr);
-
-/* Internal functions, they don't need to be called in main D:*/
-
-void __add_hostile(NPCManager* mgr, HostileNPC npc);
-void __add_passive(NPCManager* mgr, PassiveNPC npc);

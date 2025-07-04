@@ -8,7 +8,7 @@
 
 typedef struct HostileNPC HostileNPC;
 
-// "XXXXXXXXXXXXXXXX" 0 0 0 0 0 0 0 false 0 false false 0
+// "" 0 0 0 0 0 0 0 false 0 false false 0 ""
 
 struct HostileNPC {
     char name[16];
@@ -28,6 +28,7 @@ struct HostileNPC {
 
     /* Pseudo-random reward for each kill */
     int reward;
+    char spritepath[32];
 
     /* function pointers */
     void (*move)(HostileNPC* self);

@@ -31,13 +31,15 @@ struct PassiveNPC {
     /* ShopkeepGoods goods; */
     bool wants_to_talk;
 
+    char spritepath[32];
+
     void (*draw)(PassiveNPC* self);
     void (*update)(PassiveNPC* self);
     void (*interact)(PassiveNPC *self);
     void (*talk)(PassiveNPC* self);
 };
 
-// "XXXXXXXXXXXXXXXX" 0 0 0 0 0 false false false
+// "XXXXXXXXXXXXXXXX" 0 0 0 0 0 false false false ""
 
 /* Note: Functions are prefixed by 'pn_'  */
 

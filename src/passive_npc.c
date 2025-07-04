@@ -14,8 +14,23 @@ void pn_draw(PassiveNPC* self) {
 
 void pn_update(PassiveNPC* self) {
     switch (self->path_type) {
-        /* Move types that can interact with the player */
+        /* We always check if the player wants to chat before doing movement stuff */
         case PATH_STATIC:
+            if (self->wants_to_talk && self->plr_interacted_with_us)
+                pn_talk_to_plr(self);
+            break;
+
+        case PATH_SPIN:
+            if (self->wants_to_talk && self->plr_interacted_with_us)
+                pn_talk_to_plr(self);
+            break;        
+    
+        case PATH_PACE:
+            if (self->wants_to_talk && self->plr_interacted_with_us)
+                pn_talk_to_plr(self);
+            break;
+        
+        case PATH_WANDER:
             if (self->wants_to_talk && self->plr_interacted_with_us)
                 pn_talk_to_plr(self);
             break;
@@ -42,4 +57,6 @@ void pn_talk_to_plr(PassiveNPC* self) {
      *       a file of common lines, some special lines, maybe
      *       even some easter egg lines, sounds not awful...
      */
+
+    const char* dialogue_file[8] = "_lines_";
 }

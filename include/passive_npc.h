@@ -4,7 +4,6 @@
 #define SIZE 32
 
 typedef struct PassiveNPC PassiveNPC;
-typedef struct ShopkeepGoods ShopkeepGoods;
 
 typedef enum {
     PATH_STATIC,                /* Static:              0 */
@@ -16,7 +15,7 @@ typedef enum {
 
 /* Passive NPCs are unkillable */
 struct PassiveNPC {
-    char name[16];
+    char name[32];
     float x, y;
     float vx, vy;
     NPCPathType path_type;

@@ -1,6 +1,6 @@
 #include "hostile_npc.h"
 #include <stdlib.h>
-#include <_time.h>
+#include <time.h>
 
 bool hn_heal_next(HostileNPC* self) {
     if (self->heal_count == 0) return false;

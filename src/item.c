@@ -18,31 +18,27 @@ Weapon wp_create(const char *name, const char *spritepath, int damage, int durab
 }
 
 /* Happens during update loop since weapons have cooldowns */
-Weapon wp_tick(Weapon wp, float dt) {
-    if (!wp.ready) {
-        wp.cooldown -= dt;
-        if (wp.cooldown <= 0.0f) {
-            wp.cooldown = 0.0f;
-            wp.ready = true;
+Weapon wp_tick(Weapon* wp, float dt) {
+    if (!wp->ready) {
+        wp->cooldown -= dt;
+        if (wp->cooldown <= 0.0f) {
+            wp->cooldown = 0.0f;
+            wp->ready = true;
         }
     }
 
-    if (wp_is_broken(wp)) {
-        /* Remove the weapon from existence */
-    }
-
-    return wp;
+    return *wp;
 }
 
-Weapon wp_use(Weapon wp) {
-    if (wp.ready && wp.durability > 0) {
-        wp.durability--;
-        wp.ready = false;
-        wp.cooldown = 1.0f;
+Weapon wp_use(Weapon* wp) {
+    if (wp->ready && wp->durability > 0) {
+        wp->durability--;
+        wp->ready = false;
+        wp->cooldown = 1.0f;
     }
-    return wp;
+    return *wp;
 }
 
-static bool wp_is_broken(Weapon wp) {
-    return wp.durability <= 0;
+static bool wp_is_broken(Weapon* wp) {
+    return wp->durability <= 0;
 }

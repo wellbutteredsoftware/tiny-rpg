@@ -18,7 +18,7 @@ static void __add_passive(NPCManager* mgr, const PassiveNPC* npc) {
     mgr->passives[mgr->num_passives++] = *npc;
 }
 
-/* Incremental updates of all NPcs */
+/* Incremental updates of all NPCs */
 void npc_manager_update(NPCManager* mgr) {
     for (unsigned int i = 0; i < mgr->num_hostiles; i++) {
         if (mgr->hostiles[i].alive) {
@@ -45,23 +45,22 @@ void npc_mgr_draw(NPCManager* mgr) {
 void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
     FILE *npcf = fopen(filename, "r");
     if (!npcf) {
-        TraceLog(LOG_ERROR, "Failed to open plist!");
+        TraceLog(LOG_ERROR, "Failed to open passive NPC list: %s", filename);
         return;
     }
 
-    /* fget the string data and parse it into an NPC */
     PassiveNPC npc;
     char line[256];
     while (fgets(line, sizeof(line), npcf)) {
+        /* Note: sscanf expects floats for position/velocity, ints for enums/bools */
         int scanned = sscanf(
             line,
-            "%15s %d, %d, %d, %d, %d, %d, %31s",
+            "%31s %f %f %f %f %d %d %31s",
             npc.name,
-            /* Yeah it's meant to be float, we can cast this back later */
-            (int*)&npc.x,
-            (int*)&npc.y,
-            (int*)&npc.vx,
-            (int*)&npc.vy,
+            &npc.x,
+            &npc.y,
+            &npc.vx,
+            &npc.vy,
             (int*)&npc.path_type,
             (int*)&npc.wants_to_talk,
             npc.spritepath
@@ -71,7 +70,7 @@ void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
             npc.plr_interacted_with_us = false;
             __add_passive(mgr, &npc);
         } else {
-            TraceLog(LOG_WARNING, "Malformed NPC data at line: %s", line);
+            TraceLog(LOG_WARNING, "Malformed passive NPC data at line: %s", line);
         }
     }
 
@@ -81,7 +80,45 @@ void npc_mgr_init_passive(const char* filename, NPCManager* mgr) {
 void npc_mgr_init_hostile(const char* filename, NPCManager* mgr) {
     FILE *npcf = fopen(filename, "r");
     if (!npcf) {
-        TraceLog(LOG_ERROR, "Failed to open hlist!");
+        TraceLog(LOG_ERROR, "Failed to open hostile NPC list: %s", filename);
         return;
     }
+
+    HostileNPC npc;
+    char line[256];
+    while (fgets(line, sizeof(line), npcf)) {
+        int scanned = sscanf(
+            line,
+            "%31s %f %f %f %f %d %d %d %d %d %d %d %d %31s",
+            npc.name,
+            &npc.x,
+            &npc.y,
+            &npc.vx,
+            &npc.vy,
+            &npc.current_health,
+            &npc.max_health,
+            &npc.heal_count,
+            (int*)&npc.will_heal_next,
+            &npc.attack,
+            (int*)&npc.alive,
+            (int*)&npc.special,
+            &npc.reward,
+            npc.spritepath
+        );
+
+        if (scanned == 14) {
+            npc.move = NULL;
+            npc.draw = NULL;
+            npc.deal_dmg = NULL;
+            npc.take_dmg = NULL;
+            npc.heal_next = NULL;
+            npc.heal = NULL;
+
+            __add_hostile(mgr, &npc);
+        } else {
+            TraceLog(LOG_WARNING, "Malformed hostile NPC data at line: %s", line);
+        }
+    }
+
+    fclose(npcf);
 }

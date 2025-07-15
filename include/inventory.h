@@ -8,5 +8,5 @@
 typedef struct Inventory Inventory;
 
 struct Inventory {
-
+    char heowifa[128];
 };

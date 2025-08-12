@@ -1,4 +1,10 @@
-# tiny-rpg
+~~# tiny-rpg~~
+
+## Notice of Archival
+
+This project is being archived due to my life getting busy and messy really fast. This project will be un-archived in the future, but for the time being it is closed.
+
+---
 
 ![Static Badge](https://img.shields.io/badge/Built_with-C-white)
 ![Static Badge](https://img.shields.io/badge/License-LGPLv2-blue)
